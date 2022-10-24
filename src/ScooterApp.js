@@ -32,7 +32,7 @@ class ScooterApp {
       }
       else {
         // user is not already registered AND is of age
-        registeredUsers[user.username] = {"password": user.password, "age": user.age, "loggedIn": false, "accountChange": 0};
+        this.registeredUsers[user.username] = {"password": user.password, "age": user.age, "loggedIn": false, "accountChange": 0};
         // message to user
         console.log("User has been registered!");
       }
@@ -40,7 +40,7 @@ class ScooterApp {
   }
 
   logIn (username, password) {
-    if (!(username in this.registeredUsers) || (User.password !== password)) {
+    if (!(username in this.registeredUsers) || (this.registeredUsers[username.password] !== password)) {
       throw new Error ("Username or password is incorrect.");
     }
     else {
@@ -75,7 +75,7 @@ class ScooterApp {
     }
 
     if (serialLocated === false) {
-      throw new Error ("scooterToRemove object has not been previously added!");
+      throw new Error ("Scooter has not been previously added!");
     }
   }
 
