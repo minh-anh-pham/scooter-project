@@ -3,14 +3,15 @@ class Scooter{
   constructor (station, user) {
     this.station = station;
     this.user = user;
-    this.serial = Math.floor(Math.random() * 1001);
-    this.charge = Math.floor(Math.random() * 101);
+    this.serial = Math.floor(Math.random() * 1001) + 1;
+    this.charge = Math.floor(Math.random() * 101) + 1;
     this.isBroken = false;
     this.docked = true;
   }
 
   rent() {
-    if (this.isBroken === false && this.charge > 20) {
+    // Bonus: only fully charged scooters can be rented
+    if (this.isBroken === false && this.charge === 100) {
       this.docked = false;
       console.log("Enjoy the ride!");
     }
