@@ -22,7 +22,7 @@ class ScooterApp {
   }
 
   register (user) {
-    if (registeredUsers.includes(user)) {
+    if (this.registeredUsers.includes(user.username)) {
       console.log("User is already registered!");
     }
     else {
@@ -39,7 +39,45 @@ class ScooterApp {
     }
   }
 
+  logIn (username, password) {
+    if (!(username in this.registeredUsers) || (User.password !== password)) {
+      throw new Error ("Username or password is incorrect.");
+    }
+    else {
+      this.registeredUsers.username.loggedIn = true;
+      console.log("Logged in successfully!");
+    }
+  }
 
+  addScooter (location, scooter) {
+    scooter.station = location;
+    // Add the scooter argument to the stations
+    this.stations[scooter.station] = scooter.serial;
+  }
+
+  removeScooter (scooterToRemove) {
+    let indexSerialInStations = this.stations.indexOf(scooterToRemove.serial);
+    if (index !== -1) {
+      this.stations.splice(index, 1);
+    }
+    console.log("Scooter successfully removed!");
+
+    // Throw an error if the scooter serial number is not
+    // located - this means that the scooterToRemove object
+    // has not previously been added.
+
+    serialLocated = false;
+
+    for (let i = 0; i < 5; i++) {
+      if (this.stations[i].includes(scooterToRemove.serial)) {
+        serialLocated = true;
+      }
+    }
+
+    if (serialLocated === false) {
+      throw new Error ("scooterToRemove object has not been previously added!");
+    }
+  }
 
   // A Static property called scooterSessions
   // which should hold an empty array
