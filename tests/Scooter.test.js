@@ -33,18 +33,63 @@ describe('scooter class', () => {
 })
 
 //Method tests
-describe('scooter methods', () => {
   // tests here!
-  const testScooter = new Scooter ("Queens", "map");
 
   //rent method
-  rent(testScooter);
+  describe('test rent method', () => {
+    const testScooter = new Scooter ("Queens", "map");
 
+    test("not broken and fully charged", () => {
+      testScooter.charge = 100;
+      expect(rent()).toHaveBeenCalledWith("Enjoy the ride!");
+      expect(testScooter.docked === false);
+    })
+
+    test("not fully charged", () => {
+      testScooter.charge = 10;
+      expect(rent()).toThrow("Scooter low on battery, please charge.");
+    })
+
+    test("broken", () => {
+      testScooter.isBroken = true;
+      expect(rent()).toThrow("Scooter is broken, please send a repair request.");
+    })
+  })
 
   //dock method
 
+  describe("test dock method", () => {
+    const testScooter = new Scooter("Queens", "map");
+
+    test("can be docked", () => {
+      dock("Manhattan");
+      expect(testScooter.station).toEqual("Manhattan");
+      expect(testScooter.docked).toEqual(true);
+      expect(testScooter.user).toEqual("");
+    })
+
+    test("can't be docked", () => {
+      dock(undefined);
+      expect(rent()).toThrow("Docking station required!");
+    })
+  })
+
   //requestRepair method
+  describe("test requestRepair method", () => {
+    const testScooter = new Scooter("Queens", "map");
+
+    test("repaired", () => {
+      requestRepair();
+      expect(testScooter.isBroken).toEqual(false);
+    })
+  })
 
   //charge method
+  describe("test recharge method", () => {
+    const testScooter = new Scooter("Queens", "map");
 
-})
+    test("charged", () => {
+      recharge();
+      expect(testScooter.charge).toEqual(100);
+    })
+  })
