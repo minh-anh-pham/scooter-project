@@ -41,18 +41,18 @@ describe('scooter class', () => {
 
     test("not broken and fully charged", () => {
       testScooter.charge = 100;
-      expect(rent()).toHaveBeenCalledWith("Enjoy the ride!");
+      expect(testScooter.rent()).toHaveBeenCalledWith("Enjoy the ride!");
       expect(testScooter.docked === false);
     })
 
     test("not fully charged", () => {
       testScooter.charge = 10;
-      expect(rent()).toThrow("Scooter low on battery, please charge.");
+      expect(testScooter.rent()).toThrow("Scooter low on battery, please charge.");
     })
 
     test("broken", () => {
       testScooter.isBroken = true;
-      expect(rent()).toThrow("Scooter is broken, please send a repair request.");
+      expect(testScooter.rent()).toThrow("Scooter is broken, please send a repair request.");
     })
   })
 
@@ -62,7 +62,7 @@ describe('scooter class', () => {
     const testScooter = new Scooter("Queens", "map");
 
     test("can be docked", () => {
-      dock("Manhattan");
+      testScooter.dock("Manhattan");
       expect(testScooter.station).toEqual("Manhattan");
       expect(testScooter.docked).toEqual(true);
       expect(testScooter.user).toEqual("");
@@ -70,7 +70,7 @@ describe('scooter class', () => {
 
     test("can't be docked", () => {
       dock(undefined);
-      expect(rent()).toThrow("Docking station required!");
+      expect(testScooter.dock()).toThrow("Docking station required!");
     })
   })
 
@@ -79,7 +79,7 @@ describe('scooter class', () => {
     const testScooter = new Scooter("Queens", "map");
 
     test("repaired", () => {
-      requestRepair();
+      testScooter.requestRepair();
       expect(testScooter.isBroken).toEqual(false);
     })
   })
@@ -89,7 +89,7 @@ describe('scooter class', () => {
     const testScooter = new Scooter("Queens", "map");
 
     test("charged", () => {
-      recharge();
+      testScooter.recharge();
       expect(testScooter.charge).toEqual(100);
     })
   })
