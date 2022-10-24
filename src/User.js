@@ -7,7 +7,7 @@ class User {
     this.username = username;
     this.password = password;
     this.age = age;
-  }
+  }ulhueibghkrvjidfhrhigllcftudldfg
 }
 
 module.exports = User;
